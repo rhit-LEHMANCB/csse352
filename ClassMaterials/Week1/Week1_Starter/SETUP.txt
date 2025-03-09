@@ -1,0 +1,9 @@
+Changes to base "2D core" project:
+
+Added "Prefabs" directory
+Added "Scripts" directory
+
+=====================
+
+Nothing special here, just start it up!
+
