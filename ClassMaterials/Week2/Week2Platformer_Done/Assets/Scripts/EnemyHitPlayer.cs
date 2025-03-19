@@ -70,11 +70,15 @@ public class EnemyHitPlayer : MonoBehaviour
                 //the player was approximately above us
                 Debug.Log("Ouch!");
                 Destroy(gameObject);
+                //tell the game manager that the player got a kill
+                GameManagerSingleton.Instance.IncrementKillCount();
             }
             else
             {
                 //we got him!
-                playerInfo.Die();
+                //inform the game manager
+                GameManagerSingleton.Instance.PlayerDeath();
+                //playerInfo.Die();//From before we used singleton
             }
 
         }

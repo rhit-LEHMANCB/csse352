@@ -45,7 +45,8 @@ public class EnemyMove : MonoBehaviour
                 WanderRandom();
                 break;
             case MoveType.Seek:
-                Seek();
+                //Seek();//from using the old game manager
+                Seek2();
                 break;
         }
     }
@@ -118,14 +119,95 @@ public class EnemyMove : MonoBehaviour
         _finishedWander = true;
     }
 
+    GameManager _gameManager;
+    public float visionDistance = 2.5f;
+    public float jumpHeight = 2f;
+    //Seek using the normal GameManager monobehavior
     void Seek()
     {
+        if(_gameManager == null)
+        {
+            _gameManager = FindAnyObjectByType<GameManager>();
+        }
+
+        GameObject player = _gameManager.GetPlayer();
+        float playerDistance = Vector2.Distance(transform.position, player.transform.position);
+
+        if(playerDistance <= visionDistance)
+        {
+
+            //get the vector that points from me to the player
+            Vector3 directionToPlayer = player.transform.position - transform.position;
+
+            //return if we can't see the player
+            if (!LineOfSight(directionToPlayer))
+                return;
+
+            //we could just use movement cirectly below, but the enemies get a bit bouncy if we do
+            Vector3 movement = directionToPlayer.normalized;
+            //so adjust the vector to avoid the bouncing
+            if (directionToPlayer.x > 0)
+                movement = Vector3.right;
+            else
+                movement = Vector3.left;
+
+            //if the player is really close to me
+            //i'm going to bounce with anticipation
+            if (Mathf.Abs(directionToPlayer.x) < 0.1)
+                movement.y = jumpHeight;
+
+            transform.Translate(movement * speed * Time.deltaTime);
+        }
 
     }
 
-    bool LineOfSight()
+    //Seek using the Singleton GameManager
+    void Seek2()
     {
-        return false;
+        GameObject player = GameManagerSingleton.Instance.GetPlayer();
+        float playerDistance = Vector2.Distance(transform.position, player.transform.position);
+
+        if (playerDistance <= visionDistance)
+        {
+
+            //get the vector that points from me to the player
+            Vector3 directionToPlayer = player.transform.position - transform.position;
+
+            //return if we can't see the player
+            if (!LineOfSight(directionToPlayer))
+                return;
+
+            //we could just use movement directly below, but the enemies get a bit bouncy if we do
+            Vector3 movement = directionToPlayer.normalized;
+            //so adjust the vector to avoid the bouncing
+            if (directionToPlayer.x > 0)
+                movement = Vector3.right;
+            else
+                movement = Vector3.left;
+
+            //if the player is really close to me
+            //i'm going to bounce with anticipation
+            if (Mathf.Abs(directionToPlayer.x) < 0.1)
+                movement.y = jumpHeight;
+
+            transform.Translate(movement * speed * Time.deltaTime);
+        }
+
+
+    }
+
+    //returns true if we can see the player
+    bool LineOfSight(Vector3 direction)
+    {
+        //do a cast from myself in the specified direction
+        //get a reference to the first thing I hit
+        Debug.DrawRay(transform.position, direction, Color.red);
+        RaycastHit2D hits = Physics2D.Raycast(transform.position, direction, visionDistance, ~LayerMask.GetMask("Enemy"));
+        if (!hits)
+            return false;
+        if (verboseMessages) Debug.LogFormat("I see {0}", hits.transform.name);
+        //if I hit something that was not a player, then return false
+        return (hits.transform.GetComponent<PlayerInfo>() != null);
     }
 
     void InstantJump()
