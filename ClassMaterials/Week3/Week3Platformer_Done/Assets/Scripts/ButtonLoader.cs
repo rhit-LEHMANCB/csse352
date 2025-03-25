@@ -6,4 +6,10 @@ public class ButtonLoader : MonoBehaviour
     {
         GameManagerSingleton.Instance.LoadNextLevel();
     }
+
+    public void OnClickLoadWithEvent()
+    {
+        //tell everyone that the load button was pressed
+        EventBus.Publish(EventBus.EventType.LoadLevelButton);
+    }
 }

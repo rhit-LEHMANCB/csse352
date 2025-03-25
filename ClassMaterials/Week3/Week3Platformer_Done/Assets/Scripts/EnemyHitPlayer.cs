@@ -77,8 +77,8 @@ public class EnemyHitPlayer : MonoBehaviour
             {
                 //we got him!
                 //inform the game manager
-                GameManagerSingleton.Instance.PlayerDeath();
-                //playerInfo.Die();//From before we used singleton
+                //GameManagerSingleton.Instance.PlayerDeath();
+                playerInfo.Die();//From before we used singleton
             }
 
         }

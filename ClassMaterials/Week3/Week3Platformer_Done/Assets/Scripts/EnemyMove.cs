@@ -125,7 +125,8 @@ public class EnemyMove : MonoBehaviour
     //Seek using the Singleton GameManager
     void Seek2()
     {
-        GameObject player = GameManagerSingleton.Instance.GetPlayer();
+        //GameObject player = GameManagerSingleton.Instance.GetPlayer();
+        GameObject player = GameManagerWithEvents.Instance.GetPlayer();
         float playerDistance = Vector2.Distance(transform.position, player.transform.position);
 
         if (playerDistance <= visionDistance)

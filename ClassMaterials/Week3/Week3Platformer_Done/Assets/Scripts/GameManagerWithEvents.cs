@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-public class GameManagerSingleton : Singleton<GameManagerSingleton>
+public class GameManagerWithEvents : Singleton<GameManagerWithEvents>
 {
 
     [SerializeField] GameObject playerPrefab;
@@ -14,6 +14,7 @@ public class GameManagerSingleton : Singleton<GameManagerSingleton>
     {
         _player = Instantiate(playerPrefab);
         KillCount = 0;
+        SetUpListeners();
     }
 
     // Update is called once per frame
@@ -38,12 +39,8 @@ public class GameManagerSingleton : Singleton<GameManagerSingleton>
         set
         {
             _killCount = value;
-            //update the score UI
-            ScoreSetter scoreSetter = FindAnyObjectByType<ScoreSetter>();
-            if(scoreSetter != null)
-            {
-                scoreSetter.UpdateScore(KillCount);
-            }
+            //inform listeners we updated the KillCount
+            EventBus.Publish(EventBus.EventType.KillsUpdate);
         }
     }
 
@@ -55,12 +52,6 @@ public class GameManagerSingleton : Singleton<GameManagerSingleton>
         set
         {
             _lives = value;
-            //update the lives UI
-            LivesSetter livesSetter = FindAnyObjectByType<LivesSetter>();
-            if (livesSetter != null)
-            {
-                livesSetter.UpdateLives(Lives);
-            }
         }
     }
 
@@ -72,7 +63,8 @@ public class GameManagerSingleton : Singleton<GameManagerSingleton>
 
     public void PlayerDeath()
     {
-        _player.GetComponent<PlayerInfo>().Die();
+        //this is entirely done inside the Player now
+        //_player.GetComponent<PlayerInfo>().Die();
         Lives -= 1;
         if (_lives > 0)
         {
@@ -94,8 +86,6 @@ public class GameManagerSingleton : Singleton<GameManagerSingleton>
         if (_sceneIndex > levels.Length - 1)
             _sceneIndex = 0;
         SceneManager.LoadScene(levels[_sceneIndex]);
-        //make the player spawn after the scene has loaded
-        StartCoroutine(SpawnPlayerCoroutine());
     }
 
     IEnumerator SpawnPlayerCoroutine()
@@ -105,6 +95,27 @@ public class GameManagerSingleton : Singleton<GameManagerSingleton>
         while (_player != null)//can comment this while out and it will work *most* of the time
             yield return null;
         _player = Instantiate(playerPrefab);
+    }
+
+    void SpawnPlayer()
+    {
+        //if (_player == null)
+            _player = Instantiate(playerPrefab);
+    }
+
+    //EventBus managment stuff
+    void SetUpListeners()
+    {
+        EventBus.Subscribe(EventBus.EventType.LoadLevelButton, LoadNextLevel);
+        EventBus.Subscribe(EventBus.EventType.PlayerDie, PlayerDeath);
+        EventBus.Subscribe(EventBus.EventType.SceneLoaded, SpawnPlayer);
+    }
+
+    void CleanUpListeners()
+    {
+        EventBus.Unsubscribe(EventBus.EventType.LoadLevelButton, LoadNextLevel);
+        EventBus.Unsubscribe(EventBus.EventType.PlayerDie, PlayerDeath);
+        EventBus.Unsubscribe(EventBus.EventType.SceneLoaded, SpawnPlayer);
     }
 
 }
