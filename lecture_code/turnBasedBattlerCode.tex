@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{listings}
+
+
+\usepackage[T1]{fontenc}
+\usepackage[scaled]{beramono}
+\usepackage{geometry}
+ \geometry{
+ left=20mm,
+ top=20mm,
+ right=20mm,
+ bottom=20mm
+ }
+
+%from https://tex.stackexchange.com/questions/18376/beautiful-listing-for-csharp
+\usepackage{color}
+\definecolor{bluekeywords}{rgb}{0.13,0.13,1}
+\definecolor{greencomments}{rgb}{0,0.5,0}
+\definecolor{redstrings}{rgb}{0.9,0,0}
+
+\usepackage{listings}
+\lstset{language=[Sharp]C,
+showspaces=false,
+showtabs=false,
+breaklines=true,
+showstringspaces=false,
+breakatwhitespace=true,
+escapeinside={(*@}{@*)},
+commentstyle=\color{greencomments},
+keywordstyle=\color{bluekeywords}\bfseries,
+stringstyle=\color{redstrings},
+basicstyle=\ttfamily
+}
+\UseRawInputEncoding
+
+\title{}
+
+
+\begin{document}
+
+%just example printing for one week
+
+LOOK AT EVENT BUS
+\lstinputlisting{../ClassMaterials/Week4/Week4TurnBased_Done/Assets/Scripts/UISetter.cs}
+\clearpage
+LOOK AT DEBUG MANAGER
+LOOK AT IBATTLESTATE
+LOOK AT BATTLE FSM
+\lstinputlisting{../ClassMaterials/Week4/Week4TurnBased_Done/Assets/Scripts/BattleMainState.cs}
+\clearpage
+\lstinputlisting{../ClassMaterials/Week4/Week4TurnBased_Done/Assets/Scripts/BattleItemState.cs}
+\clearpage
+\lstinputlisting{../ClassMaterials/Week4/Week4TurnBased_Done/Assets/Scripts/BattleMoveState.cs}
+\clearpage
+\lstinputlisting{../ClassMaterials/Week4/Week4TurnBased_Done/Assets/Scripts/BattleResolveState.cs}
+
+
+\end{document}
