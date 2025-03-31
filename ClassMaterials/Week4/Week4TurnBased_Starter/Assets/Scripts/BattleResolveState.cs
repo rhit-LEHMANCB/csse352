@@ -43,7 +43,7 @@ public class BattleResolveState : MonoBehaviour, IBattleState
 
     IEnumerator BattleTimer()
     {
-        
+       yield return null; 
     }
 
     public void AddMessageToQueue(string s)
