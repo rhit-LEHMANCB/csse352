@@ -12,7 +12,7 @@ public class EventBus : MonoBehaviour
 
     public static void Publish(EventType eventType)
     {
-        Debug.Log("EventBus - EventType just happened: " + eventType.ToString());
+        //Debug.Log("EventBus - EventType just happened: " + eventType.ToString());
         UnityEvent thisEvent;
         if (_events.TryGetValue(eventType, out thisEvent))
         {

@@ -8,24 +8,26 @@ public class BattleItemState : MonoBehaviour, IBattleState
     GameObject _myUI;
     Canvas _canvas;
     bool _isReady = false;
+    public bool verboseMessages = true;
 
     //references for my transitions
     BattleFSM _fsm;
-    BattleResolveState _resolve_state;
+    BattleResolveState _resolveState;
 
     void Start()
     {
-        Debug.Log("Starting up Main State");
+        if (verboseMessages) Debug.Log("Starting up Main State");
         //set up my possible transitions
-        _resolve_state = GetComponent<BattleResolveState>();
-        if (_resolve_state == null)
+        _resolveState = GetComponent<BattleResolveState>();
+        if (_resolveState == null)
         {
             //there isnt one we need to make it
-            _resolve_state = gameObject.AddComponent<BattleResolveState>();
+            _resolveState = gameObject.AddComponent<BattleResolveState>();
         }
 
         _canvas = FindAnyObjectByType<Canvas>();
         _fsm = FindAnyObjectByType<BattleFSM>();
+        verboseMessages = _fsm.verboseMessages;
 
     }
 
@@ -38,7 +40,7 @@ public class BattleItemState : MonoBehaviour, IBattleState
 
     public void SetUpUI(GameObject prefab)
     {
-        Debug.Log("Setting up ITEM UI");
+        if (verboseMessages) Debug.Log("Setting up ITEM UI");
         if (_myUI == null)
         {
             _myUI = Instantiate(prefab, _canvas.transform);
@@ -71,7 +73,7 @@ public class BattleItemState : MonoBehaviour, IBattleState
 
     public void TearDownUI()
     {
-        Debug.Log("Tearing down my UI");
+        if (verboseMessages) Debug.Log("Tearing down my UI");
         //Destroy(_my_UI);
         _myUI.SetActive(false);
         //make sure we dont respond to someone else's buttons
@@ -85,10 +87,10 @@ public class BattleItemState : MonoBehaviour, IBattleState
 
     void DoItem()
     {
-        Debug.Log("Using an Item");
-        _resolve_state.AddMessageToQueue("Using an item...");
+        if (verboseMessages) Debug.Log("Using an Item");
+        _fsm.EnqueueMessage("Using an item...");
         //set next state here
-        _fsm.SetNextState(_resolve_state);
+        _fsm.SetNextState(_resolveState);
         //tear down my UI
         TearDownUI();
     }
