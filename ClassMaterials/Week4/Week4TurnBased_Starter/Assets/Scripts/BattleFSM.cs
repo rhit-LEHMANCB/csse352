@@ -6,8 +6,12 @@ public class BattleFSM : MonoBehaviour
 {
     public GameObject stateUIPrefab;
     public int numTurns = 0;
+    public bool verboseMessages = true;
 
     IBattleState currentState;
+
+    //holds data about what happened this turn
+    Queue<string> _messageQueue = new Queue<string>();
 
     private void Start()
     {
@@ -36,4 +40,21 @@ public class BattleFSM : MonoBehaviour
     {
         currentState = state;
     }
+
+    //helper methods for other states to record messages
+    public void EnqueueMessage(string message)
+    {
+        _messageQueue.Enqueue(message);
+    }
+
+    public Queue<string> GetQueue()
+    {
+        return _messageQueue;
+    }
+
+    public void ClearQueue()
+    {
+        _messageQueue.Clear();
+    }
+
 }
