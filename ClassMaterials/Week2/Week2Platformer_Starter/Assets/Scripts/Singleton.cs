@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Singleton<T> : MonoBehaviour where T : Component
 {
@@ -38,6 +39,5 @@ public class Singleton<T> : MonoBehaviour where T : Component
             Debug.LogFormat("Found second instance of {0}, Destroying one...", typeof(T).Name);
         }
     }
-
 
 }

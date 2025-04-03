@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class BattleResolveState : MonoBehaviour, IBattleState
@@ -19,40 +20,84 @@ public class BattleResolveState : MonoBehaviour, IBattleState
 
     void Start()
     {
-        if (verboseMessages) Debug.Log("Starting up Resolve State");
-        
+        Debug.Log("Starting up Resolve State");
+       _mainBattleState = GetComponent<BattleMainState>();
+        if (_mainBattleState == null)
+        {
+            _mainBattleState = gameObject.AddComponent<BattleMainState>();
+        }
+
+        _canvas = FindAnyObjectByType<Canvas>();
+        _fsm = FindAnyObjectByType<BattleFSM>();
 
     }
 
     public void Handle(BattleFSM context)
     {
-        
-
+        if (!_isReady)
+        {
+            SetUpUI(context.stateUIPrefab);
+        }
     }
 
     public void SetUpUI(GameObject prefab)
     {
-        if (verboseMessages) Debug.Log("Setting up Resolve UI");
-        
+        Debug.Log("Setting up Resolve UI");
+        if (_myUI == null)
+        {
+            _myUI = Instantiate(prefab, _canvas.transform);
+            _myUI.gameObject.name = "Resolve UI";
+            _myUIsetter = _myUI.GetComponent<UISetter>();
+            _myUIsetter.AddPanel();
+            _myUIsetter.SetPanelText("I'm gonna fight you");
+            _myUIsetter.SetTitle("Resolve");
+        }
+        else
+        {
+            _myUI.SetActive(true);
+        }
+
+        _isReady = true;
+
+        StartCoroutine(BattleTimer());
     }
 
     public void TearDownUI()
     {
-        if (verboseMessages) Debug.Log("Tearing down my UI");
-       
+        Debug.Log("Tearing down my UI");
+        _isReady = false;
+        _myUI.SetActive(false);
+
     }
 
     public float textDelay = 3f;
     IEnumerator BattleTimer()
     {
-        yield return null;
+        AddEnemyMessages();
+        float time = 2f;
+        Queue<string> messages = _fsm.GetQueue();
+
+        while (time > 0 || messages.Count > 0)
+        {
+            string s = "default";
+            if (messages.Count > 0)
+            {
+                s = messages.Dequeue();
+            }
+            _myUIsetter.SetPanelText(s);
+            time -= textDelay;
+            yield return new WaitForSeconds(textDelay);
+        }
+
+        TearDownUI();
+        _fsm.SetNextState(_mainBattleState);
     }
 
     void AddEnemyMessages()
     {
         //this should depend on the enemy and things, of course
-        _fsm.EnqueueMessage("Enemy used scratch!");
-        _fsm.EnqueueMessage("It missed!");
+        _fsm.AddMessageToQueue("Enemy used scratch!");
+        _fsm.AddMessageToQueue("It missed!");
     }
 
 }

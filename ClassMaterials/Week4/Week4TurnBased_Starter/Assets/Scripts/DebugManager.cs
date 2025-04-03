@@ -15,8 +15,8 @@ public class DebugManager : MonoBehaviour
         setter.AddButton("BUTTON1", EventBus.EventType.Button1);
         setter.AddButton("BUTTON2", EventBus.EventType.Button2);
         setter.AddButton("BUTTON3", EventBus.EventType.Button3);
-        //setter.AddPanel();
-        //setter.SetPanelText("Hello there!");
+        setter.AddPanel();
+        setter.SetPanelText("Hello there!");
     }
 
 

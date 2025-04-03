@@ -30,20 +30,29 @@ public class SquareObjectPool : MonoBehaviour
         }
     }
 
+    int id = 0;
     private Square CreatePooledItem()
     {
-        //todo
-        return null;
+        GameObject go = GameObject.Instantiate(prefab, gameObject.transform);
+        go.SetActive(false);
+        go.name = "Square_" + id.ToString();
+        id++;
+
+        Square s = go.GetComponent<Square>();
+        s.Pool = Pool;
+
+        return s;
     }
 
     private void OnReturnedToPool(Square s)
     {
-        //todo
+        s.gameObject.SetActive(false);
     }
 
     private void OnTakeFromPool(Square s)
     {
-        //todo
+        s.gameObject.SetActive(true);
+        s.ResetSquare();
     }
 
     private void OnDestroyPoolObject(Square s)

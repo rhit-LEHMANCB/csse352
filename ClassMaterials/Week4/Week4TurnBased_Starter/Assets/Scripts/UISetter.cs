@@ -24,7 +24,21 @@ public class UISetter : MonoBehaviour
     }
 
     public void AddButton(string text, EventBus.EventType eventType) {
-        
+        if (!_button1.IsActive())
+        {
+            _button1.gameObject.SetActive(true);
+            _button1.GetComponentInChildren<TMP_Text>().text = text;
+            _button1.onClick.AddListener(() => EventBus.Publish(eventType));
+        }
+        else
+        {
+            // make copy button 1
+            // set it up
+            GameObject newButton = Instantiate(_button1.gameObject, _button1.transform.parent);
+            newButton.GetComponentInChildren<TMP_Text>().text = text;
+            Button newButtonComponent = newButton.GetComponent<Button>();
+            newButtonComponent.onClick.AddListener(() => EventBus.Publish(eventType));
+        }
     }
 
     public void AddPanel()
