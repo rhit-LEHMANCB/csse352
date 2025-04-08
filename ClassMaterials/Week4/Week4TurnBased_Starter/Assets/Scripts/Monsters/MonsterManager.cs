@@ -31,10 +31,12 @@ public class MonsterManager : Singleton<MonsterManager>
         NameToMonsterDictionary = new Dictionary<string, Monster>();
         foreach (MonsterData md in monsterDatabase)
         {
-            NameToMonsterDictionary.Add(md.name,
+            //uncomment this after we've modified the MakeNewMonster signature
+            /*NameToMonsterDictionary.Add(md.name,
                 Monster.MakeNewMonster(md.name, md.maxHP,
                                     MoveManager.GetRandomMoves(),
                                     md.attack, md.defense, md));
+                                    */
         }
 
     }
