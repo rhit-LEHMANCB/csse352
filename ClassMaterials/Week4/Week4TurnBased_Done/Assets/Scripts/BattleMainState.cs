@@ -42,7 +42,9 @@ public class BattleMainState : MonoBehaviour, IBattleState
     public void Handle(BattleFSM context)
     {
         if (!_isReady)
+        {
             this.SetUpUI(context.stateUIPrefab);
+        }
 
     }
 

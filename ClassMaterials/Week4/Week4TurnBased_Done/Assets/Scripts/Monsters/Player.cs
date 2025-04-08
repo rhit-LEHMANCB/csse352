@@ -19,6 +19,9 @@ public class Player : MonoBehaviour
             //move it over to me
             friend.gameObject.transform.parent = gameObject.transform;
         }
+        //tell the GM to set up my friend's animations
+        GameManager.Instance.SetAnimations(friend);
+
         //set up my items
         items = new Item[]
         {

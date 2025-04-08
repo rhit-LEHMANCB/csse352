@@ -1,16 +1,27 @@
 using UnityEngine;
+using System.Collections.Generic;
 
-public class DamageStrategy : MonoBehaviour
+public class DamageStrategy : Singleton<DamageStrategy>, IStrategy
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public Move Execute(Monster user, Monster enemy)
     {
-        
-    }
+        List<Move> validMoves = new List<Move>();
+        foreach (Move m in user.moves)
+        {
+            if (m.moveType == Move.MoveType.damage)
+                validMoves.Add(m);
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Move[] validMovesArray = validMoves.ToArray();
+
+        if (validMovesArray.Length == 0)
+        {
+            //there were no Damage moves, just pick randomly then
+            validMovesArray = user.moves;
+        }
+
+        //Debug.LogFormat("(DamageStrategy) Chosing From {0}", MoveManager.MoveArrayToString(validMovesArray));
+
+        return validMovesArray[Random.Range(0, validMovesArray.Length - 1)];
     }
 }

@@ -69,10 +69,20 @@ public static class MoveManager
         List<Move> chosenMoves = new List<Move>();
         for(int i = 0; i < 4; i++)
         {
-            chosenMoves.Add(Moves[UnityEngine.Random.Range(0, Moves.Length - 1)]);
+            chosenMoves.Add(Moves[UnityEngine.Random.Range(0, Moves.Length)]);
         }
 
         return chosenMoves.ToArray();
+    }
+
+    public static string MoveArrayToString(Move[] moves)
+    {
+        string s = "";
+        foreach (Move m in moves)
+        {
+            s += m.ToString() + " ";
+        }
+        return s;
     }
 
 }
@@ -92,6 +102,8 @@ static class MoveEffects
         else
             GameManager.Instance.GetFSM().EnqueueMessage(string.Format("TACKLE finished off {0}!", other.name));
 
+        user.InvokeAttackListeners();
+
     }
 
     //does an amount of damage equal to the user's attack
@@ -109,6 +121,7 @@ static class MoveEffects
         else
             GameManager.Instance.GetFSM().EnqueueMessage(string.Format("SCRATCH finished off {0}!", other.name));
 
+        user.InvokeAttackListeners();
 
     }
 
@@ -134,7 +147,7 @@ static class MoveEffects
         GameManager.Instance.GetFSM().EnqueueMessage(message);
         bool statUpdated = other.ModifyDefense(-2);
         if (statUpdated)
-            GameManager.Instance.GetFSM().EnqueueMessage(string.Format("SLEEP lowered {0}'s DEFSENSE by 2.", other.name));
+            GameManager.Instance.GetFSM().EnqueueMessage(string.Format("SLEEP lowered {0}'s DEFENSE by 2.", other.name));
         else
             GameManager.Instance.GetFSM().EnqueueMessage(string.Format("SLEEP failed!"));
 

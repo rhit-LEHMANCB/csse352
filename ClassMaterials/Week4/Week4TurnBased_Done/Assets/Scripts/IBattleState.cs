@@ -10,4 +10,6 @@ public interface IBattleState
     //this is just for our UI stuff
     void SetUpUI(GameObject prefab);
     void TearDownUI();
+    //for future years I should think about this
+    //GameObject GetUI();
 }

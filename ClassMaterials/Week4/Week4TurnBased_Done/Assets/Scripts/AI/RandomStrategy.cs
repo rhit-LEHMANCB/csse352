@@ -1,16 +1,12 @@
 using UnityEngine;
 
-public class RandomStrategy : MonoBehaviour
+//Singleton ensures that all AIs have access to an instance of each strategy
+public class RandomStrategy : Singleton<RandomStrategy>, IStrategy
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public Move Execute(Monster user, Monster enemy)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        //Debug.LogFormat("(RandomStrategy) Chosing From {0}", MoveManager.MoveArrayToString(user.moves));
+        //just pick a totally random one
+        return user.moves[Random.Range(0, user.moves.Length - 1)];
     }
 }

@@ -10,6 +10,8 @@ public class UISetter : MonoBehaviour
     [SerializeField] Button _button1;
     [SerializeField] TMP_Text _title;
     [SerializeField] TMP_Text _textPanel;
+    [SerializeField] GameObject _friendLoc;
+    [SerializeField] GameObject _enemyLoc;
 
     //the buttons live under a game object containting:
     //Grid Layout Group -
@@ -51,6 +53,16 @@ public class UISetter : MonoBehaviour
     public void SetPanelText(string s)
     {
         _textPanel.text = s;
+    }
+
+    public Vector3 GetFriendImageLocation()
+    {
+        return _friendLoc.transform.position;
+    }
+
+    public Vector3 GetEnemyImageLocation()
+    {
+        return Camera.main.ViewportToWorldPoint(_enemyLoc.transform.position);
     }
 
 }

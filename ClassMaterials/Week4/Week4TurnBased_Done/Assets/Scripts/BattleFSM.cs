@@ -57,4 +57,12 @@ public class BattleFSM : MonoBehaviour
         _messageQueue.Clear();
     }
 
+    public void SetAnimators(Animator friend, Animator enemy)
+    {
+        //just search for any UIsetter
+        UISetter uiSetter = FindAnyObjectByType<UISetter>();
+        friend.transform.position = uiSetter.GetFriendImageLocation();
+        enemy.transform.position = uiSetter.GetEnemyImageLocation();
+    }
+
 }

@@ -38,8 +38,15 @@ public class BattleResolveState : MonoBehaviour, IBattleState
     {
         if (!_isReady)
         {
+            //AI chooses what it will do
+            //AI make choices here while the player is planning
+            //should this be a new state? Probably.
+            //under this regime the Enemy will always go after the player
+            GameManager.Instance.enemy.AIChooseMove();
+
+            //deal with the UI
             this.SetUpUI(context.stateUIPrefab);
-            AddEnemyMessages();
+            //AddEnemyMessages();
         }
 
     }
