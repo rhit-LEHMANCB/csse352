@@ -1,0 +1,75 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{cancel} %for strikethrough \cancel{}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{float}
+\usepackage{parskip}
+\usepackage[margin=1in]{geometry}
+
+\hypersetup{
+	colorlinks = true,
+	linkcolor = blue
+}
+%la
+\newcommand\answerbox[2]{%%
+    \vspace{1em}
+    \fbox{\rule{#1}{0pt}\rule[-0.5ex]{0pt}{#2}}}
+
+
+\title{Game Design Document}
+\author{}
+\date{}
+
+%%%%%%%%%%%%% THIS IS FOR SHIFTING TITLE POSITION %%%%%%%%
+\usepackage{titling}
+\setlength{\droptitle}{-10em} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\maketitle
+\vspace*{-4em}
+
+\section{Game overview}
+Write a one or two sentence overview of the game, this should describe the genre, general themes, and goals of the game.
+\vspace{1in}
+
+\section{Unique selling points}
+One or two sentences or bullet points that explain how this game is different from other comparable games.
+\vspace{1in}
+
+\section{Game synopsis}
+An overview of major plot points and settings, no more than 4 or 5 sentences.
+\vspace{1in}
+
+\section{Game objectives}
+A list of primary, secondary, and bonus objectives. You should consider objectives for the 4 player `archetypes' (Socializer, Explorer, Achiever, Killer). 
+\vspace{2in}
+\vfill
+
+\section{Game loop}
+Diagram the core gameplay loop, then write a sentence describing each pillar of the loop.
+\vspace{2in}
+
+\section{Game environment}
+Describe the key parts of the environemnt, meaning things the player interacts with. These might include Camera controls or effects, player input and control methods, character stats or other information, skill trees, main enemy types, etc.
+\vspace{2in}
+
+\section{Game ingredients}
+List the kinds of major elements that will make up the game. These may include major kinds of items, power ups, characters, etc. Write a brief description of each, possibly with some preliminary numbers or parameters relevant to each (e.g. how much damage should these kinds of items do)
+\vspace{2in}
+
+\section{Game systems}
+List the major core systems of the game and a description of each. These should help tie together some of the elements for the information in the earlier sections. 
+\vspace{4in}
+
+\section{Game HUD}
+Diagram out and indicate key features of the HUD or other major UI elements of the game.
+\vspace{4in}
+
+\end{document}
+
