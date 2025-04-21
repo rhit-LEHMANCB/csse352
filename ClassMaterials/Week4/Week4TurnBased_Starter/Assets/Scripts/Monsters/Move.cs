@@ -87,12 +87,15 @@ static class MoveEffects
     {
         Debug.Log("Used scratch");
 
+        other.DealDamage(Math.Max(user.attack - other.defense, 1));
     }
 
     //adds to the user's defense +2
     public static void Shield(Monster user, Monster other)
     {
         Debug.Log("Used shield");
+
+        user.ModifyDefense(2);
     }
 
     //reduces the other's defense -2
@@ -100,6 +103,7 @@ static class MoveEffects
     {
         Debug.Log("Used sleep");
 
+        other.ModifyDefense(-2);
     }
 
     //reduces the other's attack -2
@@ -107,5 +111,6 @@ static class MoveEffects
     {
         Debug.Log("Used poison");
 
+        other.ModifyAttack(-2);
     }
 }

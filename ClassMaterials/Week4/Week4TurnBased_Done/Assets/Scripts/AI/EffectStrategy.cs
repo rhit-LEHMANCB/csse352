@@ -1,14 +1,14 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
-public class DamageStrategy : Singleton<DamageStrategy>, IStrategy
+public class EffectStrategy : Singleton<DamageStrategy>, IStrategy
 {
     public Move Execute(Monster user, Monster enemy)
     {
         List<Move> goodMoves = new List<Move>();
         foreach (Move move in user.moves)
         {
-            if (move.moveType == Move.MoveType.damage)
+            if (move.moveType == Move.MoveType.effect)
             {
                 goodMoves.Add(move);
             }

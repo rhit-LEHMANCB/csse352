@@ -39,7 +39,6 @@ public class BattleResolveState : MonoBehaviour, IBattleState
         if (!_isReady)
         {
             this.SetUpUI(context.stateUIPrefab);
-            AddEnemyMessages();
         }
 
     }
@@ -63,6 +62,8 @@ public class BattleResolveState : MonoBehaviour, IBattleState
         {
             _myUI.gameObject.SetActive(true);
         }
+        
+        GameManager.Instance.enemy.ChooseMoveAI();
 
         StartCoroutine(BattleTimer());
 
@@ -97,13 +98,6 @@ public class BattleResolveState : MonoBehaviour, IBattleState
         }
         TearDownUI();
         _fsm.SetNextState(_mainBattleState);
-    }
-
-    void AddEnemyMessages()
-    {
-        //this should depend on the enemy and things, of course
-        _fsm.EnqueueMessage("Enemy used scratch!");
-        _fsm.EnqueueMessage("It missed!");
     }
 
 }

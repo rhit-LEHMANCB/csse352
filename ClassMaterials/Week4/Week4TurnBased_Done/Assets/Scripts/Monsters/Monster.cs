@@ -4,6 +4,7 @@ public class Monster : MonoBehaviour
 {
     public string monsterName;
     public int hitpoints;
+    int maxHitpoints;
     public Move[] moves;
     public int attack;
     public int defense;
@@ -20,6 +21,7 @@ public class Monster : MonoBehaviour
         Monster newMonster = newMonsterGO.AddComponent<Monster>();
         newMonster.monsterName = name;
         newMonster.hitpoints = startingHP;
+        newMonster.maxHitpoints = startingHP;
         newMonster.moves = moves;
         newMonster.attack = attack;
         newMonster.defense = defense;
@@ -45,6 +47,7 @@ public class Monster : MonoBehaviour
         Monster newMonster = newMonsterGO.AddComponent<Monster>();
         newMonster.monsterName = otherMonster.name;
         newMonster.hitpoints = otherMonster.hitpoints;
+        newMonster.maxHitpoints = otherMonster.maxHitpoints;
         newMonster.moves = otherMonster.moves;
         newMonster.attack = otherMonster.attack;
         newMonster.defense = otherMonster.defense;
@@ -61,10 +64,10 @@ public class Monster : MonoBehaviour
 
     static string PickRandomName()
     {
-        string[] possibleDescriptors = new string[] { "Funny", "Furry", "Ferocious", "Fat", "Skinny", "Affectionate", "Terrible"};
+        string[] possibleDescriptors = new string[] { "Funny", "Furry", "Ferocious", "Fat", "Skinny", "Affectionate", "Terrible" };
         string[] possibleNames = new string[] { "Luna", "Bella", "Charlie", "Lucy", "Daisy", "Cooper", "Bailey", "Max" };
         string descriptor = possibleDescriptors[Random.Range(0, possibleDescriptors.Length - 1)];
-        string name =  possibleNames[Random.Range(0, possibleNames.Length - 1)];
+        string name = possibleNames[Random.Range(0, possibleNames.Length - 1)];
         return descriptor + " " + name;
     }
 
@@ -99,4 +102,28 @@ public class Monster : MonoBehaviour
         return true;
     }
 
+    public void ChooseMoveAI()
+    {
+        // pick a move based on the strategy
+        IStrategy strategy;
+        float hpFraction = (float)hitpoints / (float)maxHitpoints;
+        if (hpFraction > 0.8f)
+        {
+            strategy = EffectStrategy.Instance;
+        }
+        else if (hpFraction < 0.2f)
+        {
+            strategy = DamageStrategy.Instance;
+        }
+        else
+        {
+            strategy = RandomStrategy.Instance;
+        }
+
+        // execute the move
+        Move move = strategy.Execute(this, GameManager.Instance.player.friend);
+        move.Effect(this, GameManager.Instance.player.friend);
+        // queue up bonus messages
+
+    }
 }

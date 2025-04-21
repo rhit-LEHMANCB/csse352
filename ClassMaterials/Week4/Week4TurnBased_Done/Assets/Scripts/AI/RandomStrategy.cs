@@ -1,16 +1,9 @@
 using UnityEngine;
 
-public class RandomStrategy : MonoBehaviour
+public class RandomStrategy : Singleton<RandomStrategy>, IStrategy
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public Move Execute(Monster user, Monster enemy)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        return user.moves[Random.Range(0, user.moves.Length)];
     }
 }
