@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{listings}
+
+
+\usepackage[T1]{fontenc}
+\usepackage[scaled]{beramono}
+\usepackage{geometry}
+ \geometry{
+ left=20mm,
+ top=20mm,
+ right=20mm,
+ bottom=20mm
+ }
+
+%from https://tex.stackexchange.com/questions/18376/beautiful-listing-for-csharp
+\usepackage{color}
+\definecolor{bluekeywords}{rgb}{0.13,0.13,1}
+\definecolor{greencomments}{rgb}{0,0.5,0}
+\definecolor{redstrings}{rgb}{0.9,0,0}
+
+\usepackage{listings}
+\lstset{language=[Sharp]C,
+showspaces=false,
+showtabs=false,
+breaklines=true,
+showstringspaces=false,
+breakatwhitespace=true,
+escapeinside={(*@}{@*)},
+commentstyle=\color{greencomments},
+keywordstyle=\color{bluekeywords}\bfseries,
+stringstyle=\color{redstrings},
+basicstyle=\ttfamily
+}
+\UseRawInputEncoding
+
+\title{}
+
+
+\begin{document}
+
+%just example printing for one week
+\newcommand{\folder}[1]{../ClassMaterials/Week6/Week6_Done/Assets/Scripts/#1}
+
+
+
+\lstinputlisting{\folder{TGRandom.cs}}
+\clearpage
+
+\lstinputlisting{\folder{TGHulk.cs}}
+\clearpage
+
+
+\lstinputlisting{\folder{TGDLA.cs}}
+\clearpage
+
+
+\lstinputlisting{\folder{TGPerlin.cs}}
+\clearpage
+
+\lstinputlisting{\folder{WFC/WFC.cs}}
+\clearpage
+
+
+\end{document}
