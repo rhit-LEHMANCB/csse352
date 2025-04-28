@@ -349,6 +349,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1520331561}
+  - component: {fileID: 1520331562}
+  - component: {fileID: 1520331564}
+  - component: {fileID: 1520331563}
   m_Layer: 0
   m_Name: Generator
   m_TagString: Untagged
@@ -371,6 +374,74 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1520331562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520331559}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fea0f05cc7ec4753bdb087d60c9143e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabPlains: {fileID: 12141126421460751, guid: 1c1c5321b91554e989e1601dc368509f, type: 3}
+  prefabGrass: {fileID: 3315859331832664959, guid: fcc05ceb095664cda88cbce33d1d1257, type: 3}
+  prefabHills: {fileID: 3880996596545827023, guid: 94a3de75b9b7f4c98a0d0c0ca038ed0b, type: 3}
+  prefabMountain: {fileID: 7404261362844907693, guid: d4de9080499e2408db9e7ad252aa47db, type: 3}
+  mapWidth: 50
+  mapHeight: 50
+  rerun: 0
+  slowGen: 0
+  timer: 0.001
+--- !u!114 &1520331563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520331559}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d106996d623e4be493719d5f9ae4934, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabPlains: {fileID: 12141126421460751, guid: 1c1c5321b91554e989e1601dc368509f, type: 3}
+  prefabGrass: {fileID: 3315859331832664959, guid: fcc05ceb095664cda88cbce33d1d1257, type: 3}
+  prefabHills: {fileID: 3880996596545827023, guid: 94a3de75b9b7f4c98a0d0c0ca038ed0b, type: 3}
+  prefabMountain: {fileID: 7404261362844907693, guid: d4de9080499e2408db9e7ad252aa47db, type: 3}
+  mapWidth: 50
+  mapHeight: 50
+  rerun: 0
+  slowGen: 1
+  timer: 0.1
+  numHulks: 25
+  hulkenergy: 50
+--- !u!114 &1520331564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520331559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73c1893c4972c4212aeb9d6daa76249f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabPlains: {fileID: 12141126421460751, guid: 1c1c5321b91554e989e1601dc368509f, type: 3}
+  prefabGrass: {fileID: 3315859331832664959, guid: fcc05ceb095664cda88cbce33d1d1257, type: 3}
+  prefabHills: {fileID: 3880996596545827023, guid: 94a3de75b9b7f4c98a0d0c0ca038ed0b, type: 3}
+  prefabMountain: {fileID: 7404261362844907693, guid: d4de9080499e2408db9e7ad252aa47db, type: 3}
+  mapWidth: 50
+  mapHeight: 50
+  rerun: 0
+  slowGen: 0
+  timer: 0.01
+  numParticles: 500
+  randomParticle: 1
+  changeProb: 0.1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

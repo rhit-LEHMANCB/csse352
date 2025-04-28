@@ -15,6 +15,7 @@ public class TGDLA : TerrainGenerator
     [SerializeField] int numParticles = 500;
     [SerializeField] bool randomParticle = false;
     [SerializeField] float changeProb = 0.1f;
+    private int type = 1;
 
     int particlesFired;
 
@@ -33,9 +34,67 @@ public class TGDLA : TerrainGenerator
         base.GenerateMap();
     }
 
+    Vector2[] possibleDirs = new Vector2[] { Vector2.up,//up
+                                            Vector2.down,//down
+                                            Vector2.right,//right
+                                            Vector2.left };//left
     protected override bool Step()
     {
-      return true; 
+        int x = Random.Range(0, mapWidth);
+        int y = Random.Range(0, mapHeight);
+        Vector2 dirFire = possibleDirs[Random.Range(0, possibleDirs.Length)];
+        Vector2 dirTest = Vector2.up;
+        if (dirFire == Vector2.up)
+        {
+            dirTest = Random.Range(0.0f, 1.0f) < 0.5f ? Vector2.left : Vector2.right;
+        }
+        else if (dirFire == Vector2.down)
+        {
+            dirFire = Random.Range(0.0f, 1.0f) < 0.5f ? Vector2.left : Vector2.right;
+        }
+        else if (dirFire == Vector2.right)
+        {
+            dirFire = Random.Range(0.0f, 1.0f) < 0.5f ? Vector2.up : Vector2.down;
+        }
+        else if (dirFire == Vector2.left)
+        {
+            dirFire = Random.Range(0.0f, 1.0f) < 0.5f ? Vector2.up : Vector2.down;
+        }
+        for (int i = 0; i < Mathf.Max(mapWidth, mapHeight); i++)
+        {
+            //Debug.Log(" " + x + " " + y + " " + dirFire.x + " " + dirFire.y);
+            if (CheckHit(ref x, ref y, dirFire) != -1)
+            {
+                if (randomParticle && Random.Range(0.0f, 1.0f) < changeProb)
+                {
+                    type = Random.Range(0, tileset.Count);
+                }
+                Debug.Log("Hit: " + x + " " + y + " " + dirFire.x + " " + dirFire.y);
+                SetGridSpace(type, x, y);
+                particlesFired++;
+                return particlesFired >= numParticles;
+            }
+            x += (int)dirTest.x;
+            y += (int)dirTest.y;
+            if (x >= mapWidth && dirTest.x == 1)
+            {
+                x = 0;
+            }
+            else if (x < 0 && dirTest.x == -1)
+            {
+                x = mapWidth - 1;
+            }
+            else if (y >= mapHeight && dirTest.y == 1)
+            {
+                y = 0;
+            }
+            else if (y < 0 && dirTest.y == -1)
+            {
+                y = mapHeight - 1;
+            }
+        }
+        //Debug.Log("Missed: " + x + " " + y + " " + dirFire.x + " " + dirFire.y + " " + particlesFired);
+        return particlesFired >= numParticles; 
     }
 
     /*
@@ -50,7 +109,17 @@ public class TGDLA : TerrainGenerator
      */
     private int CheckHit(ref int x, ref int y, Vector2 dirFire)
     {
-        
+        while (x >= 0 && x < mapWidth && y >= 0 && y < mapHeight)
+        {
+            if (idGrid[x, y] != 0)
+            {
+                x -= (int)dirFire.x;
+                y -= (int)dirFire.y;
+                return idGrid[x, y];
+            }
+            x += (int)dirFire.x;
+            y += (int)dirFire.y;
+        }
         return -1;
     }
 }

@@ -10,7 +10,19 @@ public class TGRandom : TerrainGenerator
 
     protected override bool Step()
     {
-       return true; 
+        SetGridSpace(Random.Range(0, tileset.Count), x, y);
+
+        x++;
+        if (x >= mapWidth)
+        {
+            x = 0;
+            y++;
+            if (y >= mapHeight)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     protected override void Regenerate()

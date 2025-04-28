@@ -82,7 +82,25 @@ public class WFC : MonoBehaviour
 
     void CollapseCell(List<Cell> lowEntropyGrid)
     {
+        int randIndex = UnityEngine.Random.Range(0, lowEntropyGrid.Count);
+        Cell collapsedCell = lowEntropyGrid[randIndex];
 
+        // update the cell in the grid
+        gridComponents[collapsedCell.x + collapsedCell.y * dimensions] = collapsedCell;
+
+        Tile collapsedTile = collapsedCell.CollapseTileRandomly();
+
+        Tile newTile = Instantiate(collapsedTile, collapsedCell.transform.position, Quaternion.identity);
+
+        newTile.transform.SetParent(tileParent.transform);
+
+        PropogateCollapse(collapsedCell);
+
+        iterations++;
+        if (iterations < dimensions * dimensions)
+        {
+            StartCoroutine(CheckEntropy());
+        }
     }
 
     void PropogateCollapse(Cell collapsedCell)
@@ -113,8 +131,23 @@ public class WFC : MonoBehaviour
 
     void UpdateNeighbor(Cell neighbor, Tile[] legalOptions)
     {
-        
+        List<Tile> validOptions = new List<Tile>();
 
+        foreach (Tile tileToCheck in neighbor.tileOptions)
+        {
+            if (Array.Exists(legalOptions, element => element == tileToCheck))
+            {
+                validOptions.Add(tileToCheck);
+            }
+        }
+
+        if (validOptions.Count == 0)
+        {
+            Debug.LogFormat("Error: No valid options for neighbor cell {0}", neighbor);
+            return;
+        }
+
+        neighbor.SetTiles(validOptions.ToArray());
     }
 
 }
