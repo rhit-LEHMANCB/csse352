@@ -24,13 +24,36 @@ public class ItemGenerator : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-              
+        //GameObject gameObject = new GameObject();
+        //Item shirt = gameObject.AddComponent<Item>();
+        //shirt.itemName = "Shirt";
+        //shirt.strength = 1;
+        //shirt.intelligence = 1;
+        //shirt.minDamage = 0;
+        //shirt.maxDamage = 2;
+        //shirt.itemSlot = ScriptableItem.Slot.BODY;
+        //shirt.itemType = "Clothing";
+        //shirt.itemDescription = "It is just a shirt. I guesss I could slap someone with this.";
+        //CurrentItem = shirt; 
+
+        baseItems = new List<ScriptableItem>();
+        foreach (ScriptableItem item in startingItemsArray)
+        {
+            baseItems.Add(item);
+        }
     }
 
     private void OnGUI()
     {
-      
+        if (GUILayout.Button("Make New Item"))
+        {
+            GenerateItem();
+        }
 
+        if (CurrentItem != null)
+        {
+            DisplayItem(CurrentItem);
+        }
     }
 
     private void DisplayItem(Item item)
@@ -47,7 +70,10 @@ public class ItemGenerator : MonoBehaviour
 
     private void GenerateItem()
     {
-        
+        ScriptableItem scriptableItem = baseItems[Random.Range(0, baseItems.Count)];
+        Item item = new GameObject().AddComponent<Item>();
+        item.SetUp(scriptableItem);
+        CurrentItem = item;
     }
 
     private void AddModifier()

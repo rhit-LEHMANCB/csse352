@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9de823849198449b7a9e005758138410, type: 3}
+  m_Name: ITEM_hat
+  m_EditorClassIdentifier: 
+  itemName: Hat
+  itemPrefab: {fileID: 0}
+  itemDescription: A really fancy hat. I like this hat.
+  strength: 0
+  intelligence: 4
+  minDamage: 0
+  maxDamage: 0
+  itemSlot: 0
+  itemType: Clothing
