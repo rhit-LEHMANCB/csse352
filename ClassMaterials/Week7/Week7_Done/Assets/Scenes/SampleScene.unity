@@ -561,6 +561,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireBallPrefab: {fileID: 6922544453889151481, guid: 9d9cbf4586b74405c905a05fa0295285, type: 3}
   spawnOffset: 1
+  rotationOffset: 0
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
