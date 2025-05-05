@@ -11,7 +11,7 @@ public class PlayerFire : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1)) // Check if the left mouse button is pressed
         {
-            Instantiate(fireballPrefab, transform.position + new Vector3(0, 0, spawnOffset), transform.rotation * Quaternion.Euler(0, rotationOffset, 0)); // Create a fireball at the player's position and rotation
+            Instantiate(fireballPrefab, transform.position * spawnOffset, transform.rotation * Quaternion.Euler(0, rotationOffset, 0)); // Create a fireball at the player's position and rotation
         }
     }
 }

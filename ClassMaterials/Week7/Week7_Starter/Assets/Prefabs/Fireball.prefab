@@ -121,5 +121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7c623297d5661241988aed68a27bf84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnSound: {fileID: 8300000, guid: 086b388515c9c4492961d231409277ef, type: 3}
+  crashSound: {fileID: 8300000, guid: f4218f79fe9204f4ba20f4828a7a0c94, type: 3}
+  soundManager: {fileID: 0}
   speed: 8
   burnTime: 5
